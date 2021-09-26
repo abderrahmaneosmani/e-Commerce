@@ -6,21 +6,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppModule = void 0;
+exports.RolesModule = void 0;
 const common_1 = require("@nestjs/common");
-const app_controller_1 = require("./app.controller");
-const app_service_1 = require("./app.service");
-const users_module_1 = require("./users/users.module");
-const roles_module_1 = require("./roles/roles.module");
-const usersroles_module_1 = require("./usersroles/usersroles.module");
-let AppModule = class AppModule {
+const roles_service_1 = require("./roles.service");
+const roles_controller_1 = require("./roles.controller");
+let RolesModule = class RolesModule {
 };
-AppModule = __decorate([
+RolesModule = __decorate([
     (0, common_1.Module)({
-        imports: [users_module_1.UsersModule, roles_module_1.RolesModule, usersroles_module_1.UsersrolesModule],
-        controllers: [app_controller_1.AppController],
-        providers: [app_service_1.AppService],
+        controllers: [roles_controller_1.RolesController],
+        providers: [roles_service_1.RolesService]
     })
-], AppModule);
-exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
+], RolesModule);
+exports.RolesModule = RolesModule;
+//# sourceMappingURL=roles.module.js.map
