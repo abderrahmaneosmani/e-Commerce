@@ -26,10 +26,7 @@ model User {
 model Role {
     id        String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
     name String
-    userRole userRole?
-
-    
-
+    userRole userRole?  
 }
 
 model userRole {
@@ -39,4 +36,24 @@ model userRole {
   user User @relation(fields: [userId],references:[id])
   role Role @relation(fields: [roleId],references:[id])
 
+}
+
+
+model Product {
+    id        String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+    name String
+    desc String
+    price Float
+   categoryId String @db.ObjectId
+  status String @default("active")
+
+   category Category @relation(fields:[categoryId] ,references:[id])
+
+}
+model  Category {
+      id        String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+      name String
+      desc String
+      status String @default("active")
+      products Product []
 }
