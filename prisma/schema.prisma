@@ -9,51 +9,71 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  username String
-  password String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-  email     String   @unique
-  firstname      String?
-  lastname String?
-  status String @default("active")
-  roleId String  @db.ObjectId
-  userRole userRole?
+  id        String    @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  username  String
+  password  String
+  createdAt DateTime?  @default(now())
+  updatedAt DateTime?  @default(now())
+  email     String    @unique
+  firstname String?
+  lastname  String?
+  status    String?    @default("active")
+  roleId    String    @db.ObjectId
+  userRole  userRole?
 }
 
-
 model Role {
-    id        String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
-    name String
-    userRole userRole?  
+  id        String    @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  name      String
+  userRole  userRole?
+  createdAt DateTime?  @default(now())
+  updatedAt DateTime?  @default(now())
 }
 
 model userRole {
   id        String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  userId String @db.ObjectId
-  roleId String  @db.ObjectId
-  user User @relation(fields: [userId],references:[id])
-  role Role @relation(fields: [roleId],references:[id])
+  userId    String   @db.ObjectId
+  roleId    String   @db.ObjectId
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  role      Role     @relation(fields: [roleId], references: [id])
 
 }
-
 
 model Product {
-    id        String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
-    name String
-    desc String
-    price Float
-   categoryId String @db.ObjectId
-  status String @default("active")
-
-   category Category @relation(fields:[categoryId] ,references:[id])
+  id         String     @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  name       String
+  desc       String
+  price      Float
+  categoryId String     @db.ObjectId
+  status     String     @default("active")
+  createdAt  DateTime?   @default(now())
+  updatedAt  DateTime?   @default(now())
+  category   Category   @relation(fields: [categoryId], references: [id])
+  Cartitems  cartItem[]
 
 }
-model  Category {
-      id        String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
-      name String
-      desc String
-      status String @default("active")
-      products Product []
+
+model Category {
+  id        String    @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  name      String
+  desc      String
+  status    String?   @default("active")
+  createdAt DateTime?  @default(now())
+  updatedAt DateTime?  @default(now())
+  products  Product[]
+}
+
+model cartItem {
+  id        String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  productId String   @db.ObjectId
+  quantity  Int
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @default(now())
+  status    String?     @default("active")
+
+  product   Product  @relation(fields: [productId], references: [id])
+
+
 }
