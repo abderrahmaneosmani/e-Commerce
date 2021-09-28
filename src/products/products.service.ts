@@ -3,11 +3,10 @@ import { prisma } from '../dbConfig/db';
 import { Product } from '.prisma/client';
 @Injectable()
 export class ProductsService {
-    async create(createProductDto: Product) {
-   
+  
+       async create(createProductDto: Product) {
          const product =await prisma.product.create({data:createProductDto}) ;
          return product
-         
        }
      
        async findAll() {

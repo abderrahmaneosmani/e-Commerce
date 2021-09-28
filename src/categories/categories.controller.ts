@@ -5,8 +5,8 @@ import { CategoriesService } from './categories.service';
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
   @Post()
-  create(@Body() createUserDto: any) {
-    return this.categoriesService.create(createUserDto);
+  create(@Body() createCategoryDto: any) {
+    return this.categoriesService.create(createCategoryDto);
   }
 
   @Get()
@@ -20,8 +20,8 @@ export class CategoriesController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: any) {
-    return this.categoriesService.update(id, updateUserDto);
+  update(@Param('id') id: string, @Body() updateCategoryDto: any) {
+    return this.categoriesService.update(id, updateCategoryDto);
   }
 
   @Delete(':id')

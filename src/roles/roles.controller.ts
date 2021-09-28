@@ -7,8 +7,8 @@ export class RolesController {
 
 
   @Post()
-  create(@Body() createUserDto: any) {
-    return this.rolesService.create(createUserDto);
+  create(@Body() createRoleDto: any) {
+    return this.rolesService.create(createRoleDto);
   }
 
   @Get()

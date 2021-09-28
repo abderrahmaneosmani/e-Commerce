@@ -16,11 +16,12 @@ const usersroles_module_1 = require("./usersroles/usersroles.module");
 const categories_module_1 = require("./categories/categories.module");
 const products_module_1 = require("./products/products.module");
 const cartitems_module_1 = require("./cartitems/cartitems.module");
+const orders_module_1 = require("./orders/orders.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [users_module_1.UsersModule, roles_module_1.RolesModule, usersroles_module_1.UsersrolesModule, categories_module_1.CategoriesModule, products_module_1.ProductsModule, cartitems_module_1.CartitemsModule],
+        imports: [users_module_1.UsersModule, roles_module_1.RolesModule, usersroles_module_1.UsersrolesModule, categories_module_1.CategoriesModule, products_module_1.ProductsModule, cartitems_module_1.CartitemsModule, orders_module_1.OrdersModule],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })

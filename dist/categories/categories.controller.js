@@ -19,8 +19,8 @@ let CategoriesController = class CategoriesController {
     constructor(categoriesService) {
         this.categoriesService = categoriesService;
     }
-    create(createUserDto) {
-        return this.categoriesService.create(createUserDto);
+    create(createCategoryDto) {
+        return this.categoriesService.create(createCategoryDto);
     }
     findAll() {
         return this.categoriesService.findAll();
@@ -28,8 +28,8 @@ let CategoriesController = class CategoriesController {
     findOne(id) {
         return this.categoriesService.findOne(id);
     }
-    update(id, updateUserDto) {
-        return this.categoriesService.update(id, updateUserDto);
+    update(id, updateCategoryDto) {
+        return this.categoriesService.update(id, updateCategoryDto);
     }
     remove(id) {
         return this.categoriesService.remove(id);

@@ -19,8 +19,8 @@ let RolesController = class RolesController {
     constructor(rolesService) {
         this.rolesService = rolesService;
     }
-    create(createUserDto) {
-        return this.rolesService.create(createUserDto);
+    create(createRoleDto) {
+        return this.rolesService.create(createRoleDto);
     }
     findAll() {
         return this.rolesService.findAll();
