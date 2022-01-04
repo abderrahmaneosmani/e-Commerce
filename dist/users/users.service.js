@@ -13,23 +13,31 @@ const bcrypt = require("bcrypt");
 let UsersService = class UsersService {
     async create(createUserDto) {
         const saltOrRounds = 10;
-        let password = createUserDto.password;
+        const password = createUserDto.password;
         const hash = await bcrypt.hash(password, saltOrRounds);
         createUserDto.password = hash;
         const user = await db_1.prisma.user.create({ data: createUserDto });
         return user;
     }
     async findAll() {
-        return await db_1.prisma.user.findMany({ where: { status: "active" } });
+        return await db_1.prisma.user.findMany({ where: { status: 'active' } });
     }
     async findOne(id) {
-        return await db_1.prisma.user.findFirst({ where: { id, status: "active" } });
+        return await db_1.prisma.user.findFirst({ where: { id, status: 'active' } });
+    }
+    async findByName(username) {
+        return await db_1.prisma.user.findFirst({
+            where: { username, status: 'active' },
+        });
     }
     async update(id, updateUserDto) {
         return await db_1.prisma.user.update({ where: { id }, data: updateUserDto });
     }
     async remove(id) {
-        return await db_1.prisma.user.update({ where: { id }, data: { status: "delete" } });
+        return await db_1.prisma.user.update({
+            where: { id },
+            data: { status: 'delete' },
+        });
     }
 };
 UsersService = __decorate([

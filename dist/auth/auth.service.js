@@ -33,15 +33,14 @@ let AuthService = class AuthService {
         const user = await this.usersService.findByName(username);
         if (user && user.password === password) {
             const { password } = user, result = __rest(user, ["password"]);
-            console.log('hello welcome user ');
             return result;
         }
         return null;
     }
     async login(user) {
-        const payload = { username: user.username, sub: user.userId };
+        const payload = { username: user.username, sub: user.username };
         return {
-            access_token: this.jwtService.sign(payload)
+            access_token: this.jwtService.sign(payload),
         };
     }
 };
