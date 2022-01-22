@@ -13,6 +13,8 @@ exports.AppController = void 0;
 const common_1 = require("@nestjs/common");
 const local_auth_guard_1 = require("./auth/local.auth.guard");
 const auth_service_1 = require("./auth/auth.service");
+const jwt_auth_guard_1 = require("./auth/jwt-auth.guard");
+const public_decorator_1 = require("./utils/public.decorator");
 let AppController = class AppController {
     constructor(authService) {
         this.authService = authService;
@@ -22,9 +24,11 @@ let AppController = class AppController {
     }
 };
 __decorate([
+    (0, public_decorator_1.Public)(),
     (0, common_1.UseGuards)(local_auth_guard_1.LocalAuthGuard),
     (0, common_1.Post)('auth/login'),
     (0, common_1.Bind)((0, common_1.Request)()),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)

@@ -10,7 +10,7 @@ export class ProductsService {
        }
      
        async findAll() {
-         return await prisma.product.findMany({where:{status:"active"},include:{category:true}}) ;
+         return await prisma.product.findMany({where:{status:"active"}}) ;
        }
      
        async findOne(id: string) {

@@ -18,6 +18,7 @@ const products_module_1 = require("./products/products.module");
 const cartitems_module_1 = require("./cartitems/cartitems.module");
 const orders_module_1 = require("./orders/orders.module");
 const auth_module_1 = require("./auth/auth.module");
+const uploader_module_1 = require("./uploader/uploader.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -31,6 +32,7 @@ AppModule = __decorate([
             cartitems_module_1.CartitemsModule,
             orders_module_1.OrdersModule,
             auth_module_1.AuthModule,
+            uploader_module_1.UploaderModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

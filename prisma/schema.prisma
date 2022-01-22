@@ -1,5 +1,5 @@
 generator client {
-  provider        = "prisma-client-js"
+provider        = "prisma-client-js"
   previewFeatures = ["mongoDb"]
 }
 
@@ -51,6 +51,7 @@ model Product {
   status     String     @default("active")
   createdAt  DateTime?   @default(now())
   updatedAt  DateTime?   @default(now())
+  url String
   category   Category   @relation(fields: [categoryId], references: [id])
   Cartitems  cartItem[]
 
@@ -63,6 +64,7 @@ model Category {
   status    String?   @default("active")
   createdAt DateTime?  @default(now())
   updatedAt DateTime?  @default(now())
+  url String
   products  Product[]
 }
 
@@ -84,4 +86,12 @@ model Order {
     createdAt DateTime?  @default(now())
     updatedAt DateTime?  @default(now())
   
+}
+model attachment {
+    id     String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+    type String
+    originalname String
+    filename String
+    desc String ?   
+
 }
