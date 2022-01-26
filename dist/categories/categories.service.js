@@ -15,16 +15,27 @@ let CategoriesService = class CategoriesService {
         return category;
     }
     async findAll() {
-        return await db_1.prisma.category.findMany({ where: { status: "active" } });
+        return await db_1.prisma.category.findMany({ where: { status: 'active' } });
     }
     async findOne(id) {
-        return await db_1.prisma.category.findFirst({ where: { id, status: "active" } });
+        return await db_1.prisma.category.findFirst({ where: { id, status: 'active' } });
     }
     async update(id, updateCategoryDto) {
         return await db_1.prisma.user.update({ where: { id }, data: updateCategoryDto });
     }
     async remove(id) {
-        return await db_1.prisma.category.update({ where: { id }, data: { status: "delete" } });
+        return await db_1.prisma.category.update({
+            where: { id },
+            data: { status: 'delete' },
+        });
+    }
+    async findByName(name) {
+        const category = await db_1.prisma.category.findMany({
+            where: {
+                name,
+            },
+        });
+        return category;
     }
 };
 CategoriesService = __decorate([

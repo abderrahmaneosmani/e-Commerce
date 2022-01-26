@@ -5,4 +5,5 @@ export declare class ProductsService {
     findOne(id: string): Promise<Product>;
     update(id: string, updateUserDto: Product): Promise<Product>;
     remove(id: string): Promise<Product>;
+    findByCategoryId(categoryId: string): Promise<Product[]>;
 }

@@ -6,9 +6,10 @@ import {
   Patch,
   Param,
   Delete,
-  UseGuards,
+  Query,
+  NotFoundException,
 } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { Public } from 'src/utils/public.decorator';
 import { ProductsService } from './products.service';
 
 @Controller('products')
@@ -17,26 +18,46 @@ export class ProductsController {
 
   @Post()
   create(@Body() createProductDto: any) {
-    return this.productsService.create(createProductDto);
+    const product = this.productsService.create(createProductDto);
   }
-  @UseGuards(JwtAuthGuard)
+
+  @Public()
+  @Get()
+  findByName(@Query('categoryId') categoryId: string): any {
+    const product = this.productsService.findByCategoryId(categoryId);
+    if (!product) {
+      throw new NotFoundException();
+    }
+  }
   @Get()
   findAll() {
-    return this.productsService.findAll();
+    const product = this.productsService.findAll();
+    if (!product) {
+      throw new NotFoundException();
+    }
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.productsService.findOne(id);
+    const product = this.productsService.findOne(id);
+    if (!product) {
+      throw new NotFoundException();
+    }
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateProductDto: any) {
-    return this.productsService.update(id, updateProductDto);
+    const product = this.productsService.update(id, updateProductDto);
+    if (!product) {
+      throw new NotFoundException();
+    }
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.productsService.remove(id);
+    const prdouct = this.productsService.remove(id);
+    if (!prdouct) {
+      throw new NotFoundException();
+    }
   }
 }

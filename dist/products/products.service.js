@@ -15,16 +15,27 @@ let ProductsService = class ProductsService {
         return product;
     }
     async findAll() {
-        return await db_1.prisma.product.findMany({ where: { status: "active" } });
+        return await db_1.prisma.product.findMany({ where: { status: 'active' } });
     }
     async findOne(id) {
-        return await db_1.prisma.product.findFirst({ where: { id, status: "active" } });
+        return await db_1.prisma.product.findFirst({ where: { id, status: 'active' } });
     }
     async update(id, updateUserDto) {
         return await db_1.prisma.product.update({ where: { id }, data: updateUserDto });
     }
     async remove(id) {
-        return await db_1.prisma.product.update({ where: { id }, data: { status: "delete" } });
+        return await db_1.prisma.product.update({
+            where: { id },
+            data: { status: 'delete' },
+        });
+    }
+    async findByCategoryId(categoryId) {
+        const product = await db_1.prisma.product.findMany({
+            where: {
+                categoryId: categoryId,
+            },
+        });
+        return product;
     }
 };
 ProductsService = __decorate([

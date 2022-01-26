@@ -1,6 +1,14 @@
-import { Controller ,Post,Get,Patch,Delete,Body,Param} from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Get,
+  Patch,
+  Delete,
+  Body,
+  Param,
+  NotFoundException,
+} from '@nestjs/common';
 import { CartitemsService } from './cartitems.service';
-
 
 @Controller('cartitems')
 export class CartitemsController {
@@ -8,27 +16,41 @@ export class CartitemsController {
 
   @Post()
   create(@Body() createUserDto: any) {
-    return this.cartitemsService.create(createUserDto);
+    const cart = this.cartitemsService.create(createUserDto);
+    if (!cart) {
+      throw new NotFoundException();
+    }
   }
 
   @Get()
   findAll() {
-    return this.cartitemsService.findAll();
+    const cart = this.cartitemsService.findAll();
+    if (!cart) {
+      throw new NotFoundException();
+    }
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.cartitemsService.findOne(id);
+    const cart = this.cartitemsService.findOne(id);
+    if (!cart) {
+      throw new NotFoundException();
+    }
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: any) {
-    return this.cartitemsService.update(id, updateUserDto);
+    const cart = this.cartitemsService.update(id, updateUserDto);
+    if (!cart) {
+      throw new NotFoundException();
+    }
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.cartitemsService.remove(id);
+    const cart = this.cartitemsService.remove(id);
+    if (!cart) {
+      throw new NotFoundException();
+    }
   }
-
 }

@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  NotFoundException,
 } from '@nestjs/common';
 import { UsersrolesService } from './usersroles.service';
 
@@ -15,11 +16,17 @@ export class UsersrolesController {
 
   @Post()
   create(@Body() createUsersroleDto: any) {
-    return this.usersrolesService.create(createUsersroleDto);
+    const userRole = this.usersrolesService.create(createUsersroleDto);
+    if (!userRole) {
+      throw new NotFoundException();
+    }
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.usersrolesService.remove(id);
+    const userRole = this.usersrolesService.remove(id);
+    if (!userRole) {
+      throw new NotFoundException();
+    }
   }
 }

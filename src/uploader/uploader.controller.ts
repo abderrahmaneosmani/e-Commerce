@@ -1,6 +1,7 @@
 import {
   Controller,
   Get,
+  NotFoundException,
   Param,
   Post,
   Res,
@@ -10,6 +11,7 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { editFileName, imageFileFilter } from 'src/utils/file-uploading-utils';
+import { Public } from 'src/utils/public.decorator';
 import { UploaderService } from './uploader.service';
 
 @Controller('uploader')
@@ -36,14 +38,17 @@ export class UploaderController {
     await this.uploaderService.uploadAttachment(response);
     return response;
   }
-
+  @Public()
   @Get(':imgpath')
   seeUploadedFile(@Param('imgpath') image, @Res() res) {
-    return res.sendFile(image, { root: 'src/uploads' });
+    res.sendFile(image, { root: 'src/uploads' });
   }
+  @Public()
   @Get()
   seeAllAttachments() {
     const attachments: any = this.uploaderService.getAllAttchaments();
-    return attachments;
+    if (!attachments) {
+      throw new NotFoundException();
+    }
   }
 }

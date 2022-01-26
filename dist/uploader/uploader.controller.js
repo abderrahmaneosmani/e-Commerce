@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const platform_express_1 = require("@nestjs/platform-express");
 const multer_1 = require("multer");
 const file_uploading_utils_1 = require("../utils/file-uploading-utils");
+const public_decorator_1 = require("../utils/public.decorator");
 const uploader_service_1 = require("./uploader.service");
 let UploaderController = class UploaderController {
     constructor(uploaderService) {
@@ -55,6 +56,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UploaderController.prototype, "uploadedFile", null);
 __decorate([
+    (0, public_decorator_1.Public)(),
     (0, common_1.Get)(':imgpath'),
     __param(0, (0, common_1.Param)('imgpath')),
     __param(1, (0, common_1.Res)()),
@@ -63,6 +65,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], UploaderController.prototype, "seeUploadedFile", null);
 __decorate([
+    (0, public_decorator_1.Public)(),
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),

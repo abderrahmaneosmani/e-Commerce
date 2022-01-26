@@ -5,4 +5,5 @@ export declare class CategoriesService {
     findOne(id: string): Promise<Category>;
     update(id: string, updateCategoryDto: Category): Promise<import(".prisma/client").User>;
     remove(id: string): Promise<Category>;
+    findByName(name: string): Promise<Category[]>;
 }
