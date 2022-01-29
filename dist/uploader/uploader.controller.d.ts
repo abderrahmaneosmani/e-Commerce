@@ -3,6 +3,6 @@ export declare class UploaderController {
     private readonly uploaderService;
     constructor(uploaderService: UploaderService);
     uploadedFile(file: any): Promise<any>;
-    seeUploadedFile(image: any, res: any): any;
-    seeAllAttachments(): any;
+    seeUploadedFile(image: any, res: any): void;
+    seeAllAttachments(): void;
 }

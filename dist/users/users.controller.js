@@ -20,19 +20,28 @@ let UsersController = class UsersController {
         this.usersService = usersService;
     }
     create(createUserDto) {
-        return this.usersService.create(createUserDto);
+        const user = this.usersService.create(createUserDto);
     }
     findAll() {
-        return this.usersService.findAll();
+        const user = this.usersService.findAll();
     }
     findOne(id) {
-        return this.usersService.findOne(id);
+        const user = this.usersService.findOne(id);
+        if (!user) {
+            throw new common_1.NotFoundException();
+        }
     }
     update(id, updateUserDto) {
-        return this.usersService.update(id, updateUserDto);
+        const user = this.usersService.update(id, updateUserDto);
+        if (!user) {
+            throw new common_1.NotFoundException();
+        }
     }
     remove(id) {
-        return this.usersService.remove(id);
+        const user = this.usersService.remove(id);
+        if (!user) {
+            throw new common_1.NotFoundException();
+        }
     }
 };
 __decorate([

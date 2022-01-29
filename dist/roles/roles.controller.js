@@ -20,16 +20,28 @@ let RolesController = class RolesController {
         this.rolesService = rolesService;
     }
     create(createRoleDto) {
-        return this.rolesService.create(createRoleDto);
+        const role = this.rolesService.create(createRoleDto);
+        if (!role) {
+            throw new common_1.NotFoundException();
+        }
     }
     findAll() {
-        return this.rolesService.findAll();
+        const role = this.rolesService.findAll();
+        if (!role) {
+            throw new common_1.NotFoundException();
+        }
     }
     findOne(id) {
-        return this.rolesService.findOne(id);
+        const role = this.rolesService.findOne(id);
+        if (!role) {
+            throw new common_1.NotFoundException();
+        }
     }
     remove(id) {
-        return this.rolesService.remove(id);
+        const role = this.rolesService.remove(id);
+        if (!role) {
+            throw new common_1.NotFoundException();
+        }
     }
 };
 __decorate([

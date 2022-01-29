@@ -9,7 +9,6 @@ import {
   Query,
   NotFoundException,
 } from '@nestjs/common';
-import { Public } from 'src/utils/public.decorator';
 import { CategoriesService } from './categories.service';
 
 @Controller('categories')
@@ -22,18 +21,14 @@ export class CategoriesController {
       throw new NotFoundException();
     }
   }
+  @Get()
+  findAll() {
+    return this.categoriesService.findAll();
+  }
 
   @Get()
   findByName(@Query('name') name: string): any {
     const category = this.categoriesService.findByName(name);
-    if (!category) {
-      throw new NotFoundException();
-    }
-  }
-  @Public()
-  @Get()
-  findAll() {
-    const category = this.categoriesService.findAll();
     if (!category) {
       throw new NotFoundException();
     }

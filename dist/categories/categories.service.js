@@ -15,7 +15,11 @@ let CategoriesService = class CategoriesService {
         return category;
     }
     async findAll() {
-        return await db_1.prisma.category.findMany({ where: { status: 'active' } });
+        const categories = await db_1.prisma.category.findMany({
+            where: { status: 'active' },
+        });
+        console.log(categories);
+        return categories;
     }
     async findOne(id) {
         return await db_1.prisma.category.findFirst({ where: { id, status: 'active' } });

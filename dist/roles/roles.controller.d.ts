@@ -2,8 +2,8 @@ import { RolesService } from './roles.service';
 export declare class RolesController {
     private readonly rolesService;
     constructor(rolesService: RolesService);
-    create(createRoleDto: any): Promise<void>;
-    findAll(): Promise<import(".prisma/client").Role[]>;
-    findOne(id: string): Promise<import(".prisma/client").Role>;
-    remove(id: string): Promise<import(".prisma/client").Role>;
+    create(createRoleDto: any): void;
+    findAll(): void;
+    findOne(id: string): void;
+    remove(id: string): void;
 }

@@ -20,10 +20,16 @@ let UsersrolesController = class UsersrolesController {
         this.usersrolesService = usersrolesService;
     }
     create(createUsersroleDto) {
-        return this.usersrolesService.create(createUsersroleDto);
+        const userRole = this.usersrolesService.create(createUsersroleDto);
+        if (!userRole) {
+            throw new common_1.NotFoundException();
+        }
     }
     remove(id) {
-        return this.usersrolesService.remove(id);
+        const userRole = this.usersrolesService.remove(id);
+        if (!userRole) {
+            throw new common_1.NotFoundException();
+        }
     }
 };
 __decorate([

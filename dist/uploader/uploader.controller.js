@@ -34,11 +34,13 @@ let UploaderController = class UploaderController {
         return response;
     }
     seeUploadedFile(image, res) {
-        return res.sendFile(image, { root: 'src/uploads' });
+        res.sendFile(image, { root: 'src/uploads' });
     }
     seeAllAttachments() {
         const attachments = this.uploaderService.getAllAttchaments();
-        return attachments;
+        if (!attachments) {
+            throw new common_1.NotFoundException();
+        }
     }
 };
 __decorate([

@@ -20,19 +20,34 @@ let OrdersController = class OrdersController {
         this.ordersService = ordersService;
     }
     create(createOrderDto) {
-        return this.ordersService.create(createOrderDto);
+        const order = this.ordersService.create(createOrderDto);
+        if (!order) {
+            throw new common_1.NotFoundException();
+        }
     }
     findAll() {
-        return this.ordersService.findAll();
+        const order = this.ordersService.findAll();
+        if (!order) {
+            throw new common_1.NotFoundException();
+        }
     }
     findOne(id) {
-        return this.ordersService.findOne(id);
+        const order = this.ordersService.findOne(id);
+        if (!order) {
+            throw new common_1.NotFoundException();
+        }
     }
     update(id, updateOrderDto) {
-        return this.ordersService.update(id, updateOrderDto);
+        const order = this.ordersService.update(id, updateOrderDto);
+        if (!order) {
+            throw new common_1.NotFoundException();
+        }
     }
     remove(id) {
-        return this.ordersService.remove(id);
+        const order = this.ordersService.remove(id);
+        if (!order) {
+            throw new common_1.NotFoundException();
+        }
     }
 };
 __decorate([

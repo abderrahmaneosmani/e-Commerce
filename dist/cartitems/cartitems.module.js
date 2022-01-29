@@ -15,7 +15,7 @@ let CartitemsModule = class CartitemsModule {
 CartitemsModule = __decorate([
     (0, common_1.Module)({
         controllers: [cartitems_controller_1.CartitemsController],
-        providers: [cartitems_service_1.CartitemsService]
+        providers: [cartitems_service_1.CartItemService],
     })
 ], CartitemsModule);
 exports.CartitemsModule = CartitemsModule;

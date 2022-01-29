@@ -15,31 +15,36 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CartitemsController = void 0;
 const common_1 = require("@nestjs/common");
 const cartitems_service_1 = require("./cartitems.service");
+const create_cartItem_dto_1 = require("./dto/create-cartItem.dto");
+const update_cartItem_1 = require("./dto/update-cartItem");
 let CartitemsController = class CartitemsController {
-    constructor(cartitemsService) {
-        this.cartitemsService = cartitemsService;
+    constructor(cartItemService) {
+        this.cartItemService = cartItemService;
     }
-    create(createUserDto) {
-        return this.cartitemsService.create(createUserDto);
+    create(createCarteDto) {
+        return this.cartItemService.create(createCarteDto);
     }
     findAll() {
-        return this.cartitemsService.findAll();
+        return this.cartItemService.findAll();
     }
     findOne(id) {
-        return this.cartitemsService.findOne(id);
+        return this.cartItemService.findOne(id);
     }
-    update(id, updateUserDto) {
-        return this.cartitemsService.update(id, updateUserDto);
+    update(id, updateCartIemDto) {
+        return this.cartItemService.update(id, updateCartIemDto);
     }
     remove(id) {
-        return this.cartitemsService.remove(id);
+        const cart = this.cartItemService.remove(id);
+        if (!cart) {
+            throw new common_1.NotFoundException();
+        }
     }
 };
 __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [create_cartItem_dto_1.CreateCartItemDto]),
     __metadata("design:returntype", void 0)
 ], CartitemsController.prototype, "create", null);
 __decorate([
@@ -60,7 +65,7 @@ __decorate([
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:paramtypes", [String, update_cartItem_1.UpdateCartItemDto]),
     __metadata("design:returntype", void 0)
 ], CartitemsController.prototype, "update", null);
 __decorate([
@@ -72,7 +77,7 @@ __decorate([
 ], CartitemsController.prototype, "remove", null);
 CartitemsController = __decorate([
     (0, common_1.Controller)('cartitems'),
-    __metadata("design:paramtypes", [cartitems_service_1.CartitemsService])
+    __metadata("design:paramtypes", [cartitems_service_1.CartItemService])
 ], CartitemsController);
 exports.CartitemsController = CartitemsController;
 //# sourceMappingURL=cartitems.controller.js.map

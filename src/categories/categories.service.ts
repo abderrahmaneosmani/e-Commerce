@@ -10,7 +10,12 @@ export class CategoriesService {
   }
 
   async findAll() {
-    return await prisma.category.findMany({ where: { status: 'active' } });
+    const categories = await prisma.category.findMany({
+      where: { status: 'active' },
+    });
+
+    console.log(categories);
+    return categories;
   }
 
   async findOne(id: string) {
