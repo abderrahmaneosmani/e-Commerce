@@ -10,16 +10,15 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
+import { CreateCategoryDto } from './dto/crate-category.dto';
+import { UpdateCategoryDto } from './dto/update-category.dto';
 
 @Controller('categories')
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
   @Post()
-  create(@Body() createCategoryDto: any) {
-    const category = this.categoriesService.create(createCategoryDto);
-    if (!category) {
-      throw new NotFoundException();
-    }
+  create(@Body() createCategoryDto: CreateCategoryDto) {
+    return this.categoriesService.create(createCategoryDto);
   }
   @Get()
   findAll() {
@@ -28,33 +27,24 @@ export class CategoriesController {
 
   @Get()
   findByName(@Query('name') name: string): any {
-    const category = this.categoriesService.findByName(name);
-    if (!category) {
-      throw new NotFoundException();
-    }
+    return this.categoriesService.findByName(name);
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    const category = this.categoriesService.findOne(id);
-    if (!category) {
-      throw new NotFoundException();
-    }
+    return this.categoriesService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCategoryDto: any) {
-    const category = this.categoriesService.update(id, updateCategoryDto);
-    if (!category) {
-      throw new NotFoundException();
-    }
+  update(
+    @Param('id') id: string,
+    @Body() updateCategoryDto: UpdateCategoryDto,
+  ) {
+    return this.categoriesService.update(id, updateCategoryDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    const category = this.categoriesService.remove(id);
-    if (!category) {
-      throw new NotFoundException();
-    }
+    return this.categoriesService.remove(id);
   }
 }

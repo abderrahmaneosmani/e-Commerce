@@ -15,49 +15,36 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CategoriesController = void 0;
 const common_1 = require("@nestjs/common");
 const categories_service_1 = require("./categories.service");
+const crate_category_dto_1 = require("./dto/crate-category.dto");
+const update_category_dto_1 = require("./dto/update-category.dto");
 let CategoriesController = class CategoriesController {
     constructor(categoriesService) {
         this.categoriesService = categoriesService;
     }
     create(createCategoryDto) {
-        const category = this.categoriesService.create(createCategoryDto);
-        if (!category) {
-            throw new common_1.NotFoundException();
-        }
+        return this.categoriesService.create(createCategoryDto);
     }
     findAll() {
         return this.categoriesService.findAll();
     }
     findByName(name) {
-        const category = this.categoriesService.findByName(name);
-        if (!category) {
-            throw new common_1.NotFoundException();
-        }
+        return this.categoriesService.findByName(name);
     }
     findOne(id) {
-        const category = this.categoriesService.findOne(id);
-        if (!category) {
-            throw new common_1.NotFoundException();
-        }
+        return this.categoriesService.findOne(id);
     }
     update(id, updateCategoryDto) {
-        const category = this.categoriesService.update(id, updateCategoryDto);
-        if (!category) {
-            throw new common_1.NotFoundException();
-        }
+        return this.categoriesService.update(id, updateCategoryDto);
     }
     remove(id) {
-        const category = this.categoriesService.remove(id);
-        if (!category) {
-            throw new common_1.NotFoundException();
-        }
+        return this.categoriesService.remove(id);
     }
 };
 __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [crate_category_dto_1.CreateCategoryDto]),
     __metadata("design:returntype", void 0)
 ], CategoriesController.prototype, "create", null);
 __decorate([
@@ -85,7 +72,7 @@ __decorate([
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:paramtypes", [String, update_category_dto_1.UpdateCategoryDto]),
     __metadata("design:returntype", void 0)
 ], CategoriesController.prototype, "update", null);
 __decorate([

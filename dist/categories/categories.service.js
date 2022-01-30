@@ -12,26 +12,48 @@ const db_1 = require("../dbConfig/db");
 let CategoriesService = class CategoriesService {
     async create(createCategoryDto) {
         const category = await db_1.prisma.category.create({ data: createCategoryDto });
+        if (!category) {
+            throw new common_1.HttpException(`we can create this category`, common_1.HttpStatus.NOT_ACCEPTABLE);
+        }
         return category;
     }
     async findAll() {
         const categories = await db_1.prisma.category.findMany({
             where: { status: 'active' },
         });
-        console.log(categories);
+        if (!categories) {
+            throw new common_1.HttpException(`not found  .... `, common_1.HttpStatus.NOT_FOUND);
+        }
         return categories;
     }
     async findOne(id) {
-        return await db_1.prisma.category.findFirst({ where: { id, status: 'active' } });
+        const category = await db_1.prisma.category.findFirst({
+            where: { id, status: 'active' },
+        });
+        if (!category) {
+            throw new common_1.HttpException(`not found this .... ${id}`, common_1.HttpStatus.NOT_ACCEPTABLE);
+        }
+        return category;
     }
     async update(id, updateCategoryDto) {
-        return await db_1.prisma.user.update({ where: { id }, data: updateCategoryDto });
+        const category = await db_1.prisma.user.update({
+            where: { id },
+            data: updateCategoryDto,
+        });
+        if (!category) {
+            throw new common_1.HttpException(`not found this .... ${id}`, common_1.HttpStatus.NOT_ACCEPTABLE);
+        }
+        return category;
     }
     async remove(id) {
-        return await db_1.prisma.category.update({
+        const category = await db_1.prisma.category.update({
             where: { id },
             data: { status: 'delete' },
         });
+        if (category) {
+            throw new common_1.HttpException(`not found this .... ${id}`, common_1.HttpStatus.NOT_ACCEPTABLE);
+        }
+        return category;
     }
     async findByName(name) {
         const category = await db_1.prisma.category.findMany({
@@ -39,6 +61,9 @@ let CategoriesService = class CategoriesService {
                 name,
             },
         });
+        if (!category) {
+            throw new common_1.HttpException(`not found this .... ${name}`, common_1.HttpStatus.NOT_ACCEPTABLE);
+        }
         return category;
     }
 };

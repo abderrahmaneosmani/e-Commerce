@@ -1,11 +1,18 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { prisma } from '../dbConfig/db';
-import { Category } from '.prisma/client';
+import { CreateCategoryDto } from './dto/crate-category.dto';
+import { UpdateCategoryDto } from './dto/update-category.dto';
 
 @Injectable()
 export class CategoriesService {
-  async create(createCategoryDto: Category) {
+  async create(createCategoryDto: CreateCategoryDto) {
     const category = await prisma.category.create({ data: createCategoryDto });
+    if (!category) {
+      throw new HttpException(
+        `we can create this category`,
+        HttpStatus.NOT_ACCEPTABLE,
+      );
+    }
     return category;
   }
 
@@ -13,24 +20,52 @@ export class CategoriesService {
     const categories = await prisma.category.findMany({
       where: { status: 'active' },
     });
+    if (!categories) {
+      throw new HttpException(`not found  .... `, HttpStatus.NOT_FOUND);
+    }
 
-    console.log(categories);
     return categories;
   }
 
   async findOne(id: string) {
-    return await prisma.category.findFirst({ where: { id, status: 'active' } });
+    const category = await prisma.category.findFirst({
+      where: { id, status: 'active' },
+    });
+    if (!category) {
+      throw new HttpException(
+        `not found this .... ${id}`,
+        HttpStatus.NOT_ACCEPTABLE,
+      );
+    }
+    return category;
   }
 
-  async update(id: string, updateCategoryDto: Category) {
-    return await prisma.user.update({ where: { id }, data: updateCategoryDto });
+  async update(id: string, updateCategoryDto: UpdateCategoryDto) {
+    const category = await prisma.user.update({
+      where: { id },
+      data: updateCategoryDto,
+    });
+    if (!category) {
+      throw new HttpException(
+        `not found this .... ${id}`,
+        HttpStatus.NOT_ACCEPTABLE,
+      );
+    }
+    return category;
   }
 
   async remove(id: string) {
-    return await prisma.category.update({
+    const category = await prisma.category.update({
       where: { id },
       data: { status: 'delete' },
     });
+    if (category) {
+      throw new HttpException(
+        `not found this .... ${id}`,
+        HttpStatus.NOT_ACCEPTABLE,
+      );
+    }
+    return category;
   }
   async findByName(name: string) {
     const category = await prisma.category.findMany({
@@ -38,6 +73,12 @@ export class CategoriesService {
         name,
       },
     });
+    if (!category) {
+      throw new HttpException(
+        `not found this .... ${name}`,
+        HttpStatus.NOT_ACCEPTABLE,
+      );
+    }
     return category;
   }
 }
