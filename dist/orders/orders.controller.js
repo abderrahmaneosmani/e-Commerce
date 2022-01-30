@@ -14,47 +14,34 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.OrdersController = void 0;
 const common_1 = require("@nestjs/common");
+const create_order_dto_1 = require("./dto/create-order.dto");
+const update_order_dto_1 = require("./dto/update-order.dto");
 const orders_service_1 = require("./orders.service");
 let OrdersController = class OrdersController {
     constructor(ordersService) {
         this.ordersService = ordersService;
     }
     create(createOrderDto) {
-        const order = this.ordersService.create(createOrderDto);
-        if (!order) {
-            throw new common_1.NotFoundException();
-        }
+        return this.ordersService.create(createOrderDto);
     }
     findAll() {
-        const order = this.ordersService.findAll();
-        if (!order) {
-            throw new common_1.NotFoundException();
-        }
+        return this.ordersService.findAll();
     }
     findOne(id) {
-        const order = this.ordersService.findOne(id);
-        if (!order) {
-            throw new common_1.NotFoundException();
-        }
+        return this.ordersService.findOne(id);
     }
     update(id, updateOrderDto) {
-        const order = this.ordersService.update(id, updateOrderDto);
-        if (!order) {
-            throw new common_1.NotFoundException();
-        }
+        return this.ordersService.update(id, updateOrderDto);
     }
     remove(id) {
-        const order = this.ordersService.remove(id);
-        if (!order) {
-            throw new common_1.NotFoundException();
-        }
+        return this.ordersService.remove(id);
     }
 };
 __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [create_order_dto_1.CreateOrderDto]),
     __metadata("design:returntype", void 0)
 ], OrdersController.prototype, "create", null);
 __decorate([
@@ -75,7 +62,7 @@ __decorate([
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:paramtypes", [String, update_order_dto_1.UpdateOrderDto]),
     __metadata("design:returntype", void 0)
 ], OrdersController.prototype, "update", null);
 __decorate([

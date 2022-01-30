@@ -1,30 +1,67 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { prisma } from '../dbConfig/db';
-import { Product } from '.prisma/client';
+import { CreateProductDto } from './dto/crate-product.dto';
+import { UpdateProductDto } from './dto/update-product.dto';
 @Injectable()
 export class ProductsService {
-  async create(createProductDto: Product) {
+  async create(createProductDto: any) {
     const product = await prisma.product.create({ data: createProductDto });
-    return product;
+    if (!product) {
+      throw new HttpException(
+        `we can create this product`,
+        HttpStatus.NOT_ACCEPTABLE,
+      );
+    }
   }
 
   async findAll() {
-    return await prisma.product.findMany({ where: { status: 'active' } });
+    const products = await prisma.product.findMany({
+      where: { status: 'active' },
+    });
+    if (!products) {
+      throw new HttpException(`not found`, HttpStatus.NOT_FOUND);
+    }
+    return products;
   }
 
   async findOne(id: string) {
-    return await prisma.product.findFirst({ where: { id, status: 'active' } });
+    const product = await prisma.product.findFirst({
+      where: { id, status: 'active' },
+    });
+    if (!product) {
+      throw new HttpException(
+        `not found this .... ${id}`,
+        HttpStatus.NOT_ACCEPTABLE,
+      );
+    }
   }
 
-  async update(id: string, updateUserDto: Product) {
-    return await prisma.product.update({ where: { id }, data: updateUserDto });
+  async update(id: string, updateProductDto: UpdateProductDto) {
+    const product = await prisma.product.update({
+      where: { id },
+      data: updateProductDto,
+    });
+    if (!product) {
+      throw new HttpException(
+        `not found this .... ${id}`,
+        HttpStatus.NOT_ACCEPTABLE,
+      );
+    }
+    return product;
   }
 
   async remove(id: string) {
-    return await prisma.product.update({
+    const product = await prisma.product.update({
       where: { id },
       data: { status: 'delete' },
     });
+    if (!product) {
+      throw new HttpException(
+        `not found this .... ${id}`,
+        HttpStatus.NOT_ACCEPTABLE,
+      );
+    }
+    return product;
   }
   async findByCategoryId(categoryId: string) {
     const product = await prisma.product.findMany({
@@ -32,6 +69,12 @@ export class ProductsService {
         categoryId: categoryId,
       },
     });
+    if (!product) {
+      throw new HttpException(
+        `not found this .... ${categoryId}`,
+        HttpStatus.NOT_ACCEPTABLE,
+      );
+    }
     return product;
   }
 }

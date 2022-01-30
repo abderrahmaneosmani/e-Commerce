@@ -12,22 +12,46 @@ const db_1 = require("../dbConfig/db");
 let ProductsService = class ProductsService {
     async create(createProductDto) {
         const product = await db_1.prisma.product.create({ data: createProductDto });
-        return product;
+        if (!product) {
+            throw new common_1.HttpException(`we can create this product`, common_1.HttpStatus.NOT_ACCEPTABLE);
+        }
     }
     async findAll() {
-        return await db_1.prisma.product.findMany({ where: { status: 'active' } });
+        const products = await db_1.prisma.product.findMany({
+            where: { status: 'active' },
+        });
+        if (!products) {
+            throw new common_1.HttpException(`not found`, common_1.HttpStatus.NOT_FOUND);
+        }
+        return products;
     }
     async findOne(id) {
-        return await db_1.prisma.product.findFirst({ where: { id, status: 'active' } });
+        const product = await db_1.prisma.product.findFirst({
+            where: { id, status: 'active' },
+        });
+        if (!product) {
+            throw new common_1.HttpException(`not found this .... ${id}`, common_1.HttpStatus.NOT_ACCEPTABLE);
+        }
     }
-    async update(id, updateUserDto) {
-        return await db_1.prisma.product.update({ where: { id }, data: updateUserDto });
+    async update(id, updateProductDto) {
+        const product = await db_1.prisma.product.update({
+            where: { id },
+            data: updateProductDto,
+        });
+        if (!product) {
+            throw new common_1.HttpException(`not found this .... ${id}`, common_1.HttpStatus.NOT_ACCEPTABLE);
+        }
+        return product;
     }
     async remove(id) {
-        return await db_1.prisma.product.update({
+        const product = await db_1.prisma.product.update({
             where: { id },
             data: { status: 'delete' },
         });
+        if (!product) {
+            throw new common_1.HttpException(`not found this .... ${id}`, common_1.HttpStatus.NOT_ACCEPTABLE);
+        }
+        return product;
     }
     async findByCategoryId(categoryId) {
         const product = await db_1.prisma.product.findMany({
@@ -35,6 +59,9 @@ let ProductsService = class ProductsService {
                 categoryId: categoryId,
             },
         });
+        if (!product) {
+            throw new common_1.HttpException(`not found this .... ${categoryId}`, common_1.HttpStatus.NOT_ACCEPTABLE);
+        }
         return product;
     }
 };

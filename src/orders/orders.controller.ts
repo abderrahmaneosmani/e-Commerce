@@ -6,50 +6,36 @@ import {
   Patch,
   Param,
   Delete,
-  NotFoundException,
 } from '@nestjs/common';
+import { CreateOrderDto } from './dto/create-order.dto';
+import { UpdateOrderDto } from './dto/update-order.dto';
 import { OrdersService } from './orders.service';
 
 @Controller('orders')
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
   @Post()
-  create(@Body() createOrderDto: any) {
-    const order = this.ordersService.create(createOrderDto);
-    if (!order) {
-      throw new NotFoundException();
-    }
+  create(@Body() createOrderDto: CreateOrderDto) {
+    return this.ordersService.create(createOrderDto);
   }
 
   @Get()
   findAll() {
-    const order = this.ordersService.findAll();
-    if (!order) {
-      throw new NotFoundException();
-    }
+    return this.ordersService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    const order = this.ordersService.findOne(id);
-    if (!order) {
-      throw new NotFoundException();
-    }
+    return this.ordersService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateOrderDto: any) {
-    const order = this.ordersService.update(id, updateOrderDto);
-    if (!order) {
-      throw new NotFoundException();
-    }
+  update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
+    return this.ordersService.update(id, updateOrderDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    const order = this.ordersService.remove(id);
-    if (!order) {
-      throw new NotFoundException();
-    }
+    return this.ordersService.remove(id);
   }
 }

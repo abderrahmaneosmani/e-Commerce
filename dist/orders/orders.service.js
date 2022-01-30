@@ -12,19 +12,46 @@ const db_1 = require("../dbConfig/db");
 let OrdersService = class OrdersService {
     async create(createProductDto) {
         const order = await db_1.prisma.order.create({ data: createProductDto });
+        if (!order) {
+            throw new common_1.HttpException(`we can create this order`, common_1.HttpStatus.NOT_ACCEPTABLE);
+        }
         return order;
     }
     async findAll() {
-        return await db_1.prisma.order.findMany({ where: { status: "active" } });
+        const orders = await db_1.prisma.order.findMany({ where: { status: 'active' } });
+        if (!orders) {
+            throw new common_1.HttpException(`not found`, common_1.HttpStatus.NOT_FOUND);
+        }
+        return orders;
     }
     async findOne(id) {
-        return await db_1.prisma.order.findFirst({ where: { id, status: "active" } });
+        const order = await db_1.prisma.order.findFirst({
+            where: { id, status: 'active' },
+        });
+        if (!order) {
+            throw new common_1.HttpException(`not found this ${id}`, common_1.HttpStatus.NOT_ACCEPTABLE);
+        }
+        return order;
     }
     async update(id, updateUserDto) {
-        return await db_1.prisma.order.update({ where: { id }, data: updateUserDto });
+        const order = await db_1.prisma.order.update({
+            where: { id },
+            data: updateUserDto,
+        });
+        if (!order) {
+            throw new common_1.HttpException(`not found this .... ${id}`, common_1.HttpStatus.NOT_ACCEPTABLE);
+        }
+        return order;
     }
     async remove(id) {
-        return await db_1.prisma.order.update({ where: { id }, data: { status: "delete" } });
+        const order = await db_1.prisma.order.update({
+            where: { id },
+            data: { status: 'delete' },
+        });
+        if (!order) {
+            throw new common_1.HttpException(`not found this .... ${id}`, common_1.HttpStatus.NOT_ACCEPTABLE);
+        }
+        return order;
     }
 };
 OrdersService = __decorate([

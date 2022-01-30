@@ -1,9 +1,9 @@
-import { Product } from '.prisma/client';
+import { UpdateProductDto } from './dto/update-product.dto';
 export declare class ProductsService {
-    create(createProductDto: Product): Promise<Product>;
-    findAll(): Promise<Product[]>;
-    findOne(id: string): Promise<Product>;
-    update(id: string, updateUserDto: Product): Promise<Product>;
-    remove(id: string): Promise<Product>;
-    findByCategoryId(categoryId: string): Promise<Product[]>;
+    create(createProductDto: any): Promise<void>;
+    findAll(): Promise<import(".prisma/client").Product[]>;
+    findOne(id: string): Promise<void>;
+    update(id: string, updateProductDto: UpdateProductDto): Promise<import(".prisma/client").Product>;
+    remove(id: string): Promise<import(".prisma/client").Product>;
+    findByCategoryId(categoryId: string): Promise<import(".prisma/client").Product[]>;
 }
