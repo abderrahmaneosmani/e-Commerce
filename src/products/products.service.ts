@@ -35,6 +35,7 @@ export class ProductsService {
         HttpStatus.NOT_ACCEPTABLE,
       );
     }
+    return product;
   }
 
   async update(id: string, updateProductDto: UpdateProductDto) {

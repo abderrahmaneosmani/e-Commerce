@@ -8,6 +8,7 @@ import {
   Delete,
   NotFoundException,
 } from '@nestjs/common';
+import { CreateUserRoleDto } from './dto/create-user-role-dto';
 import { UsersrolesService } from './usersroles.service';
 
 @Controller('usersroles')
@@ -15,18 +16,12 @@ export class UsersrolesController {
   constructor(private readonly usersrolesService: UsersrolesService) {}
 
   @Post()
-  create(@Body() createUsersroleDto: any) {
-    const userRole = this.usersrolesService.create(createUsersroleDto);
-    if (!userRole) {
-      throw new NotFoundException();
-    }
+  create(@Body() createUsersroleDto: CreateUserRoleDto) {
+    return this.usersrolesService.create(createUsersroleDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    const userRole = this.usersrolesService.remove(id);
-    if (!userRole) {
-      throw new NotFoundException();
-    }
+    return this.usersrolesService.remove(id);
   }
 }
