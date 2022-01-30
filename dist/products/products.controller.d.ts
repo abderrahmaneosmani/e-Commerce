@@ -4,7 +4,7 @@ import { ProductsService } from './products.service';
 export declare class ProductsController {
     private readonly productsService;
     constructor(productsService: ProductsService);
-    create(createProductDto: CreateProductDto): Promise<void>;
+    create(createProductDto: CreateProductDto): Promise<import(".prisma/client").Product>;
     findAll(): Promise<import(".prisma/client").Product[]>;
     findByName(categoryId: string): any;
     findOne(id: string): Promise<void>;

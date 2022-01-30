@@ -1,9 +1,10 @@
-import { User } from '.prisma/client';
+import { UpdateUserDto } from './dto/create-user.dto';
+import { CreateUserDto } from './dto/update-user.dto';
 export declare class UsersService {
-    create(createUserDto: User): Promise<User>;
-    findAll(): Promise<User[]>;
-    findOne(id: string): Promise<User>;
-    findByName(username: string): Promise<User>;
-    update(id: string, updateUserDto: User): Promise<User>;
-    remove(id: string): Promise<User>;
+    create(createUserDto: CreateUserDto): Promise<import(".prisma/client").User>;
+    findAll(): Promise<import(".prisma/client").User[]>;
+    findOne(id: string): Promise<import(".prisma/client").User>;
+    findByName(username: string): Promise<import(".prisma/client").User>;
+    update(id: string, updateUserDto: UpdateUserDto): Promise<import(".prisma/client").User>;
+    remove(id: string): Promise<import(".prisma/client").User>;
 }

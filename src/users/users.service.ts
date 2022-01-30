@@ -1,11 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { UpdateUserDto } from './dto/create-user.dto';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { prisma } from '../dbConfig/db';
-import { User } from '.prisma/client';
 import * as bcrypt from 'bcrypt';
+import { CreateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UsersService {
-  async create(createUserDto: User) {
+  async create(createUserDto: CreateUserDto) {
     //hash password
     const saltOrRounds = 10;
     const password: string = createUserDto.password;
@@ -17,27 +18,64 @@ export class UsersService {
   }
 
   async findAll() {
-    return await prisma.user.findMany({ where: { status: 'active' } });
+    const user = await prisma.user.findMany({ where: { status: 'active' } });
+    if (!user) {
+      throw new HttpException(`not found`, HttpStatus.NOT_FOUND);
+    }
+    return user;
   }
 
   async findOne(id: string) {
-    return await prisma.user.findFirst({ where: { id, status: 'active' } });
+    const user = await prisma.user.findFirst({
+      where: { id, status: 'active' },
+    });
+    if (!user) {
+      throw new HttpException(
+        `not found this .... ${id}`,
+        HttpStatus.NOT_ACCEPTABLE,
+      );
+    }
+    return user;
   }
 
   async findByName(username: string) {
-    return await prisma.user.findFirst({
+    const user = await prisma.user.findFirst({
       where: { username, status: 'active' },
     });
+    if (!user) {
+      throw new HttpException(
+        `not found this .... ${username}`,
+        HttpStatus.NOT_ACCEPTABLE,
+      );
+    }
+    return user;
   }
 
-  async update(id: string, updateUserDto: User) {
-    return await prisma.user.update({ where: { id }, data: updateUserDto });
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    const user = await prisma.user.update({
+      where: { id },
+      data: updateUserDto,
+    });
+    if (!user) {
+      throw new HttpException(
+        `we can create this product`,
+        HttpStatus.NOT_ACCEPTABLE,
+      );
+    }
+    return user;
   }
 
   async remove(id: string) {
-    return await prisma.user.update({
+    const user = await prisma.user.update({
       where: { id },
       data: { status: 'delete' },
     });
+    if (!user) {
+      throw new HttpException(
+        `not found this .... ${id}`,
+        HttpStatus.NOT_ACCEPTABLE,
+      );
+    }
+    return user;
   }
 }

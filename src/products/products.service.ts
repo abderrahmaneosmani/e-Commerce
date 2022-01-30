@@ -12,6 +12,7 @@ export class ProductsService {
         HttpStatus.NOT_ACCEPTABLE,
       );
     }
+    return product;
   }
 
   async findAll() {

@@ -26,10 +26,7 @@ let RolesController = class RolesController {
         }
     }
     findAll() {
-        const role = this.rolesService.findAll();
-        if (!role) {
-            throw new common_1.NotFoundException();
-        }
+        return this.rolesService.findAll();
     }
     findOne(id) {
         const role = this.rolesService.findOne(id);

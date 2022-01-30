@@ -15,6 +15,7 @@ let ProductsService = class ProductsService {
         if (!product) {
             throw new common_1.HttpException(`we can create this product`, common_1.HttpStatus.NOT_ACCEPTABLE);
         }
+        return product;
     }
     async findAll() {
         const products = await db_1.prisma.product.findMany({

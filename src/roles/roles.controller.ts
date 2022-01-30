@@ -24,10 +24,7 @@ export class RolesController {
 
   @Get()
   findAll() {
-    const role = this.rolesService.findAll();
-    if (!role) {
-      throw new NotFoundException();
-    }
+    return this.rolesService.findAll();
   }
 
   @Get(':id')

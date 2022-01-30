@@ -20,24 +20,49 @@ let UsersService = class UsersService {
         return user;
     }
     async findAll() {
-        return await db_1.prisma.user.findMany({ where: { status: 'active' } });
+        const user = await db_1.prisma.user.findMany({ where: { status: 'active' } });
+        if (!user) {
+            throw new common_1.HttpException(`not found`, common_1.HttpStatus.NOT_FOUND);
+        }
+        return user;
     }
     async findOne(id) {
-        return await db_1.prisma.user.findFirst({ where: { id, status: 'active' } });
+        const user = await db_1.prisma.user.findFirst({
+            where: { id, status: 'active' },
+        });
+        if (!user) {
+            throw new common_1.HttpException(`not found this .... ${id}`, common_1.HttpStatus.NOT_ACCEPTABLE);
+        }
+        return user;
     }
     async findByName(username) {
-        return await db_1.prisma.user.findFirst({
+        const user = await db_1.prisma.user.findFirst({
             where: { username, status: 'active' },
         });
+        if (!user) {
+            throw new common_1.HttpException(`not found this .... ${username}`, common_1.HttpStatus.NOT_ACCEPTABLE);
+        }
+        return user;
     }
     async update(id, updateUserDto) {
-        return await db_1.prisma.user.update({ where: { id }, data: updateUserDto });
+        const user = await db_1.prisma.user.update({
+            where: { id },
+            data: updateUserDto,
+        });
+        if (!user) {
+            throw new common_1.HttpException(`we can create this product`, common_1.HttpStatus.NOT_ACCEPTABLE);
+        }
+        return user;
     }
     async remove(id) {
-        return await db_1.prisma.user.update({
+        const user = await db_1.prisma.user.update({
             where: { id },
             data: { status: 'delete' },
         });
+        if (!user) {
+            throw new common_1.HttpException(`not found this .... ${id}`, common_1.HttpStatus.NOT_ACCEPTABLE);
+        }
+        return user;
     }
 };
 UsersService = __decorate([
