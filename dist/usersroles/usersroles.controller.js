@@ -14,29 +14,24 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersrolesController = void 0;
 const common_1 = require("@nestjs/common");
+const create_user_role_dto_1 = require("./dto/create-user-role-dto");
 const usersroles_service_1 = require("./usersroles.service");
 let UsersrolesController = class UsersrolesController {
     constructor(usersrolesService) {
         this.usersrolesService = usersrolesService;
     }
     create(createUsersroleDto) {
-        const userRole = this.usersrolesService.create(createUsersroleDto);
-        if (!userRole) {
-            throw new common_1.NotFoundException();
-        }
+        return this.usersrolesService.create(createUsersroleDto);
     }
     remove(id) {
-        const userRole = this.usersrolesService.remove(id);
-        if (!userRole) {
-            throw new common_1.NotFoundException();
-        }
+        return this.usersrolesService.remove(id);
     }
 };
 __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [create_user_role_dto_1.CreateUserRoleDto]),
     __metadata("design:returntype", void 0)
 ], UsersrolesController.prototype, "create", null);
 __decorate([

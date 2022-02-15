@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CartitemsController = void 0;
 const common_1 = require("@nestjs/common");
+const public_decorator_1 = require("../utils/public.decorator");
 const cartitems_service_1 = require("./cartitems.service");
 const create_cartItem_dto_1 = require("./dto/create-cartItem.dto");
 const update_cartItem_1 = require("./dto/update-cartItem");
@@ -23,6 +24,9 @@ let CartitemsController = class CartitemsController {
     }
     create(createCarteDto) {
         return this.cartItemService.create(createCarteDto);
+    }
+    getByUserId(query) {
+        return this.cartItemService.getByUserId(query.userId);
     }
     findAll() {
         return this.cartItemService.findAll();
@@ -34,13 +38,11 @@ let CartitemsController = class CartitemsController {
         return this.cartItemService.update(id, updateCartIemDto);
     }
     remove(id) {
-        const cart = this.cartItemService.remove(id);
-        if (!cart) {
-            throw new common_1.NotFoundException();
-        }
+        return this.cartItemService.remove(id);
     }
 };
 __decorate([
+    (0, public_decorator_1.Public)(),
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -48,12 +50,22 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CartitemsController.prototype, "create", null);
 __decorate([
+    (0, public_decorator_1.Public)(),
+    (0, common_1.Get)(),
+    __param(0, (0, common_1.Query)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], CartitemsController.prototype, "getByUserId", null);
+__decorate([
+    (0, public_decorator_1.Public)(),
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], CartitemsController.prototype, "findAll", null);
 __decorate([
+    (0, public_decorator_1.Public)(),
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
@@ -69,6 +81,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CartitemsController.prototype, "update", null);
 __decorate([
+    (0, public_decorator_1.Public)(),
     (0, common_1.Delete)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),

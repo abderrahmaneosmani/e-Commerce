@@ -15,6 +15,7 @@ let CartItemService = class CartItemService {
         if (!cartItem) {
             throw new common_1.HttpException('error ', common_1.HttpStatus.BAD_REQUEST);
         }
+        return cartItem;
     }
     async findAll() {
         const cartItem = await db_1.prisma.cartItem.findMany({
@@ -46,13 +47,29 @@ let CartItemService = class CartItemService {
     }
     async remove(id) {
         const cartItem = await db_1.prisma.cartItem.update({
-            where: { id },
-            data: { status: 'delete' },
+            where: {
+                id: id,
+            },
+            data: {
+                status: 'delete',
+            },
         });
         if (!cartItem) {
             throw new common_1.HttpException(`not found this .... ${id}`, common_1.HttpStatus.NOT_ACCEPTABLE);
         }
         return cartItem;
+    }
+    async getByUserId(userId) {
+        const cartItems = await db_1.prisma.cartItem.findMany({
+            where: {
+                userId,
+                status: 'active',
+            },
+        });
+        if (!cartItems) {
+            throw new common_1.HttpException(`not found this .... ${userId}`, common_1.HttpStatus.NOT_ACCEPTABLE);
+        }
+        return cartItems;
     }
 };
 CartItemService = __decorate([

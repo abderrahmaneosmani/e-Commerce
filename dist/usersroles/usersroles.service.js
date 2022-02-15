@@ -11,10 +11,18 @@ const common_1 = require("@nestjs/common");
 const db_1 = require("../dbConfig/db");
 let UsersrolesService = class UsersrolesService {
     async create(userRole) {
-        return await db_1.prisma.userRole.create({ data: userRole });
+        const userrole = await db_1.prisma.userRole.create({ data: userRole });
+        if (!userrole) {
+            throw new common_1.HttpException(`cant create  .... `, common_1.HttpStatus.NOT_ACCEPTABLE);
+        }
+        return userrole;
     }
     async remove(id) {
-        return await db_1.prisma.userRole.delete({ where: { id } });
+        const userrole = await db_1.prisma.userRole.delete({ where: { id } });
+        if (!userrole) {
+            throw new common_1.HttpException(`not found this .... ${id}`, common_1.HttpStatus.NOT_ACCEPTABLE);
+        }
+        return userrole;
     }
 };
 UsersrolesService = __decorate([

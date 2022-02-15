@@ -9,13 +9,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateCategoryDto = void 0;
+exports.CreateUserRoleDto = void 0;
 const class_validator_1 = require("class-validator");
-class CreateCategoryDto {
+class CreateUserRoleDto {
 }
 __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], CreateCategoryDto.prototype, "title", void 0);
-exports.CreateCategoryDto = CreateCategoryDto;
-//# sourceMappingURL=crate-category.dto.js.map
+], CreateUserRoleDto.prototype, "userId", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateUserRoleDto.prototype, "roleId", void 0);
+exports.CreateUserRoleDto = CreateUserRoleDto;
+//# sourceMappingURL=create-user-role-dto.js.map

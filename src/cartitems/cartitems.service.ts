@@ -16,6 +16,7 @@ export class CartItemService {
     if (!cartItem) {
       throw new HttpException('error ', HttpStatus.BAD_REQUEST);
     }
+    return cartItem;
   }
 
   async findAll() {
@@ -57,8 +58,12 @@ export class CartItemService {
 
   async remove(id: string) {
     const cartItem = await prisma.cartItem.update({
-      where: { id },
-      data: { status: 'delete' },
+      where: {
+        id: id,
+      },
+      data: {
+        status: 'delete',
+      },
     });
     if (!cartItem) {
       throw new HttpException(
@@ -67,5 +72,20 @@ export class CartItemService {
       );
     }
     return cartItem;
+  }
+  async getByUserId(userId: string) {
+    const cartItems = await prisma.cartItem.findMany({
+      where: {
+        userId,
+        status: 'active',
+      },
+    });
+    if (!cartItems) {
+      throw new HttpException(
+        `not found this .... ${userId}`,
+        HttpStatus.NOT_ACCEPTABLE,
+      );
+    }
+    return cartItems;
   }
 }

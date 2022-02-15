@@ -67,10 +67,10 @@ export class CategoriesService {
     }
     return category;
   }
-  async findByName(name: string) {
+  async findByTitle(title: string) {
     const category = await prisma.category.findMany({
       where: {
-        name,
+        title,
       },
     });
     if (!category) {

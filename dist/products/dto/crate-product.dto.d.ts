@@ -1,7 +1,8 @@
 export declare class CreateProductDto {
-    readonly name: string;
-    readonly desc: string;
-    readonly url: string;
+    readonly title: string;
+    readonly description: string;
+    readonly image: string;
     readonly price: number;
     readonly categoryId: string;
+    readonly rating?: string;
 }

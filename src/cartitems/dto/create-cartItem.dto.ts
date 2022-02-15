@@ -1,11 +1,11 @@
-import { IsNumber, IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 export class CreateCartItemDto {
   @IsString()
   readonly productId: string;
-  @IsNumber()
-  readonly quantity: number;
-  @IsString()
-  readonly url: string;
+  @IsOptional()
+  readonly userId?: string;
   @IsString()
   readonly totalPrice: string;
+  @IsString()
+  readonly image: string;
 }

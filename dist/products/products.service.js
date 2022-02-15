@@ -17,9 +17,35 @@ let ProductsService = class ProductsService {
         }
         return product;
     }
-    async findAll() {
+    async findAll(s) {
+        const params = {
+            status: 'active',
+        };
+        if (s && typeof s === 'string' && s.length > 0) {
+            params.OR = [
+                {
+                    title: {
+                        contains: s,
+                        mode: 'insensitive',
+                    },
+                    description: {
+                        contains: s,
+                        mode: 'insensitive',
+                    },
+                },
+            ];
+        }
         const products = await db_1.prisma.product.findMany({
-            where: { status: 'active' },
+            where: {
+                OR: [
+                    {
+                        title: {
+                            contains: s,
+                        },
+                    },
+                ],
+                status: 'active',
+            },
         });
         if (!products) {
             throw new common_1.HttpException(`not found`, common_1.HttpStatus.NOT_FOUND);
@@ -33,6 +59,7 @@ let ProductsService = class ProductsService {
         if (!product) {
             throw new common_1.HttpException(`not found this .... ${id}`, common_1.HttpStatus.NOT_ACCEPTABLE);
         }
+        return product;
     }
     async update(id, updateProductDto) {
         const product = await db_1.prisma.product.update({
@@ -57,13 +84,33 @@ let ProductsService = class ProductsService {
     async findByCategoryId(categoryId) {
         const product = await db_1.prisma.product.findMany({
             where: {
-                categoryId: categoryId,
+                categoryId,
+                status: 'active',
             },
         });
         if (!product) {
             throw new common_1.HttpException(`not found this .... ${categoryId}`, common_1.HttpStatus.NOT_ACCEPTABLE);
         }
         return product;
+    }
+    async sortProducts(sort) {
+        const sorts = {
+            createdAt: 'desc',
+        };
+        if (sort) {
+            delete sorts.createdAt;
+            sorts[sort] = 'desc';
+        }
+        const products = await db_1.prisma.product.findMany({
+            where: {
+                status: 'active',
+            },
+            orderBy: sorts,
+        });
+        if (!products) {
+            throw new common_1.HttpException(`not found this .... ${sort}`, common_1.HttpStatus.NOT_ACCEPTABLE);
+        }
+        return products;
     }
 };
 ProductsService = __decorate([

@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CategoriesController = void 0;
 const common_1 = require("@nestjs/common");
+const public_decorator_1 = require("../utils/public.decorator");
 const categories_service_1 = require("./categories.service");
 const crate_category_dto_1 = require("./dto/crate-category.dto");
 const update_category_dto_1 = require("./dto/update-category.dto");
@@ -27,8 +28,8 @@ let CategoriesController = class CategoriesController {
     findAll() {
         return this.categoriesService.findAll();
     }
-    findByName(name) {
-        return this.categoriesService.findByName(name);
+    findByTitle(title) {
+        return this.categoriesService.findByTitle(title);
     }
     findOne(id) {
         return this.categoriesService.findOne(id);
@@ -48,18 +49,20 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CategoriesController.prototype, "create", null);
 __decorate([
+    (0, public_decorator_1.Public)(),
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], CategoriesController.prototype, "findAll", null);
 __decorate([
+    (0, public_decorator_1.Public)(),
     (0, common_1.Get)(),
-    __param(0, (0, common_1.Query)('name')),
+    __param(0, (0, common_1.Query)('title')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Object)
-], CategoriesController.prototype, "findByName", null);
+], CategoriesController.prototype, "findByTitle", null);
 __decorate([
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),

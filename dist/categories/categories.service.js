@@ -55,10 +55,10 @@ let CategoriesService = class CategoriesService {
         }
         return category;
     }
-    async findByName(name) {
+    async findByTitle(title) {
         const category = await db_1.prisma.category.findMany({
             where: {
-                name,
+                title,
             },
         });
         if (!category) {

@@ -9,6 +9,8 @@ import {
   Query,
   NotFoundException,
 } from '@nestjs/common';
+import { title } from 'process';
+import { Public } from 'src/utils/public.decorator';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/crate-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
@@ -20,14 +22,15 @@ export class CategoriesController {
   create(@Body() createCategoryDto: CreateCategoryDto) {
     return this.categoriesService.create(createCategoryDto);
   }
+  @Public()
   @Get()
   findAll() {
     return this.categoriesService.findAll();
   }
-
+  @Public()
   @Get()
-  findByName(@Query('name') name: string): any {
-    return this.categoriesService.findByName(name);
+  findByTitle(@Query('title') title: string): any {
+    return this.categoriesService.findByTitle(title);
   }
 
   @Get(':id')

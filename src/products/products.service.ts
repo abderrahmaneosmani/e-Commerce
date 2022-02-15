@@ -15,9 +15,27 @@ export class ProductsService {
     return product;
   }
 
-  async findAll() {
+  async findAll(s: string) {
+    const params: any = {
+      status: 'active',
+    };
+    if (s && typeof s === 'string' && s.length > 0) {
+      params.OR = [
+        {
+          title: {
+            contains: s,
+            mode: 'insensitive',
+          },
+          description: {
+            contains: s,
+            mode: 'insensitive',
+          },
+        },
+      ];
+    }
+
     const products = await prisma.product.findMany({
-      where: { status: 'active' },
+      where: params,
     });
     if (!products) {
       throw new HttpException(`not found`, HttpStatus.NOT_FOUND);
@@ -68,7 +86,8 @@ export class ProductsService {
   async findByCategoryId(categoryId: string) {
     const product = await prisma.product.findMany({
       where: {
-        categoryId: categoryId,
+        categoryId,
+        status: 'active',
       },
     });
     if (!product) {
@@ -78,5 +97,28 @@ export class ProductsService {
       );
     }
     return product;
+  }
+  async sortProducts(sort: string) {
+    const sorts: any = {
+      createdAt: 'desc',
+    };
+    if (sort) {
+      delete sorts.createdAt;
+      sorts[sort] = 'desc';
+    }
+
+    const products = await prisma.product.findMany({
+      where: {
+        status: 'active',
+      },
+      orderBy: sorts,
+    });
+    if (!products) {
+      throw new HttpException(
+        `not found this .... ${sort}`,
+        HttpStatus.NOT_ACCEPTABLE,
+      );
+    }
+    return products;
   }
 }

@@ -1,6 +1,6 @@
 export declare class CreateCartItemDto {
     readonly productId: string;
-    readonly quantity: number;
-    readonly url: string;
+    readonly userId?: string;
     readonly totalPrice: string;
+    readonly image: string;
 }

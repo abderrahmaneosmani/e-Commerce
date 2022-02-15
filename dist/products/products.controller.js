@@ -13,6 +13,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProductsController = void 0;
+const public_decorator_1 = require("./../utils/public.decorator");
 const common_1 = require("@nestjs/common");
 const crate_product_dto_1 = require("./dto/crate-product.dto");
 const update_product_dto_1 = require("./dto/update-product.dto");
@@ -21,14 +22,17 @@ let ProductsController = class ProductsController {
     constructor(productsService) {
         this.productsService = productsService;
     }
+    findAll(s) {
+        return this.productsService.findAll(s);
+    }
     create(createProductDto) {
         return this.productsService.create(createProductDto);
     }
-    findAll() {
-        return this.productsService.findAll();
-    }
     findByName(categoryId) {
         return this.productsService.findByCategoryId(categoryId);
+    }
+    sortProduct(sort) {
+        return this.productsService.sortProducts(sort);
     }
     findOne(id) {
         return this.productsService.findOne(id);
@@ -41,6 +45,14 @@ let ProductsController = class ProductsController {
     }
 };
 __decorate([
+    (0, public_decorator_1.Public)(),
+    (0, common_1.Get)(),
+    __param(0, (0, common_1.Query)('s')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], ProductsController.prototype, "findAll", null);
+__decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -48,12 +60,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ProductsController.prototype, "create", null);
 __decorate([
-    (0, common_1.Get)(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], ProductsController.prototype, "findAll", null);
-__decorate([
+    (0, public_decorator_1.Public)(),
     (0, common_1.Get)(),
     __param(0, (0, common_1.Query)('categoryId')),
     __metadata("design:type", Function),
@@ -61,6 +68,15 @@ __decorate([
     __metadata("design:returntype", Object)
 ], ProductsController.prototype, "findByName", null);
 __decorate([
+    (0, public_decorator_1.Public)(),
+    (0, common_1.Get)('sort'),
+    __param(0, (0, common_1.Query)('sort')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Object)
+], ProductsController.prototype, "sortProduct", null);
+__decorate([
+    (0, public_decorator_1.Public)(),
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),

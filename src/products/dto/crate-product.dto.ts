@@ -2,13 +2,15 @@ import { IsNumber, IsString } from 'class-validator';
 
 export class CreateProductDto {
   @IsString()
-  readonly name: string;
+  readonly title: string;
   @IsString()
-  readonly desc: string;
+  readonly description: string;
   @IsString()
-  readonly url: string;
+  readonly image: string;
   @IsNumber()
   readonly price: number;
   @IsString()
   readonly categoryId: string;
+  @IsString()
+  readonly rating?: string;
 }

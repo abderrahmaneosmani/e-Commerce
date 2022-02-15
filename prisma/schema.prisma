@@ -44,14 +44,15 @@ model userRole {
 
 model Product {
   id         String     @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  name       String
-  desc       String
-  price      Float
+  title       String
+  price       Float
   categoryId String     @db.ObjectId
   status     String     @default("active")
+  description String
+  image String
+  rating String?
   createdAt  DateTime?   @default(now())
   updatedAt  DateTime?   @default(now())
-  url String
   category   Category   @relation(fields: [categoryId], references: [id])
   Cartitems  cartItem[]
 
@@ -59,24 +60,23 @@ model Product {
 
 model Category {
   id        String    @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  name      String
-  desc      String
+  title      String
   status    String?   @default("active")
   createdAt DateTime?  @default(now())
   updatedAt DateTime?  @default(now())
-  url String
   products  Product[]
 }
 
 model cartItem {
   id        String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
   productId String   @db.ObjectId
-  quantity  Int
-  url String
-  totalPrice String
+  userId String?   @db.ObjectId
+  quantity  Int @default(1)
+  image String?
   createdAt DateTime? @default(now())
   updatedAt DateTime? @default(now())
   status    String?     @default("active")
+  totalPrice String
   product   Product  @relation(fields: [productId], references: [id])
 
 }
