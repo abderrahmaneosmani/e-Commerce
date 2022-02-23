@@ -16,9 +16,7 @@ export class ProductsService {
   }
 
   async findAll(s: string) {
-    const params: any = {
-      status: 'active',
-    };
+    const params: any = {};
     if (s && typeof s === 'string' && s.length > 0) {
       params.OR = [
         {
@@ -32,6 +30,9 @@ export class ProductsService {
           },
         },
       ];
+      params.AND = {
+        status: 'active',
+      };
     }
 
     const products = await prisma.product.findMany({

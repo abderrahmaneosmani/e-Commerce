@@ -18,9 +18,7 @@ let ProductsService = class ProductsService {
         return product;
     }
     async findAll(s) {
-        const params = {
-            status: 'active',
-        };
+        const params = {};
         if (s && typeof s === 'string' && s.length > 0) {
             params.OR = [
                 {
@@ -34,18 +32,12 @@ let ProductsService = class ProductsService {
                     },
                 },
             ];
+            params.AND = {
+                status: 'active',
+            };
         }
         const products = await db_1.prisma.product.findMany({
-            where: {
-                OR: [
-                    {
-                        title: {
-                            contains: s,
-                        },
-                    },
-                ],
-                status: 'active',
-            },
+            where: params,
         });
         if (!products) {
             throw new common_1.HttpException(`not found`, common_1.HttpStatus.NOT_FOUND);

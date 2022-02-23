@@ -24,7 +24,7 @@ model User {
 }
 
 model Role {
-  id        String    @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  id String @id @default(auto()) @map("_id") @db.ObjectId
   name      String
   userRole  userRole?
   createdAt DateTime?  @default(now())
@@ -32,7 +32,7 @@ model Role {
 }
 
 model userRole {
-  id        String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  id String @id @default(auto()) @map("_id") @db.ObjectId
   userId    String   @db.ObjectId
   roleId    String   @db.ObjectId
   createdAt DateTime? @default(now())
@@ -43,7 +43,7 @@ model userRole {
 }
 
 model Product {
-  id         String     @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  id String @id @default(auto()) @map("_id") @db.ObjectId
   title       String
   price       Float
   categoryId String     @db.ObjectId
@@ -59,7 +59,7 @@ model Product {
 }
 
 model Category {
-  id        String    @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  id String @id @default(auto()) @map("_id") @db.ObjectId
   title      String
   status    String?   @default("active")
   createdAt DateTime?  @default(now())
@@ -68,7 +68,7 @@ model Category {
 }
 
 model cartItem {
-  id        String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  id String @id @default(auto()) @map("_id") @db.ObjectId
   productId String   @db.ObjectId
   userId String?   @db.ObjectId
   quantity  Int @default(1)
@@ -81,7 +81,7 @@ model cartItem {
 
 }
 model Order {
-    id     String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  id String @id @default(auto()) @map("_id") @db.ObjectId
     userId  String @db.ObjectId
     amount Int 
     status    String?     @default("active")
@@ -92,7 +92,7 @@ model Order {
   
 }
 model attachment {
-    id     String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  id String @id @default(auto()) @map("_id") @db.ObjectId
     type String
     originalname String
     filename String
