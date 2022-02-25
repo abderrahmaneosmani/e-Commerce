@@ -5,7 +5,7 @@ provider        = "prisma-client-js"
 
 datasource db {
   provider = "mongodb"
-  url      = env("DATABASE_URL")
+  url      ="mongodb+srv://root:Abdouso19@cluster0.eczkb.mongodb.net/eCommerce"
 }
 
 model User {
