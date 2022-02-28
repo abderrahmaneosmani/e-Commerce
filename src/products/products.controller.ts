@@ -27,7 +27,7 @@ export class ProductsController {
     return this.productsService.create(createProductDto);
   }
   @Public()
-  @Get()
+  @Get('category')
   findByName(@Query('categoryId') categoryId: string): any {
     return this.productsService.findByCategoryId(categoryId);
   }

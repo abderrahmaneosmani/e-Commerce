@@ -14,7 +14,7 @@ async function bootstrap() {
     }));
     const reflector = app.get(core_1.Reflector);
     app.useGlobalGuards(new jwt_auth_guard_1.JwtAuthGuard(reflector));
-    await app.listen(9000);
+    await app.listen(process.env.PORT || 9000);
 }
 bootstrap();
 //# sourceMappingURL=main.js.map

@@ -61,7 +61,7 @@ __decorate([
 ], ProductsController.prototype, "create", null);
 __decorate([
     (0, public_decorator_1.Public)(),
-    (0, common_1.Get)(),
+    (0, common_1.Get)('category'),
     __param(0, (0, common_1.Query)('categoryId')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
